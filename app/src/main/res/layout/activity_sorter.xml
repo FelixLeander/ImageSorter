@@ -7,73 +7,114 @@
     tools:context=".SorterAct">
 
     <LinearLayout
-        android:id="@+id/llVert_main"
-        android:layout_width="match_parent"
+        android:id="@+id/llVert_controls"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="70"
         android:orientation="vertical"
-        android:weightSum="100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/llVert_controlls"
+            android:id="@+id/llHor_folderPath"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="70"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
 
-            <LinearLayout
-                android:weightSum="100"
-                android:id="@+id/llHor_folderPath"
+            <TextView
+                android:id="@+id/textView_folder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:gravity="center"
+                android:text="Image Folder (and sub)"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/button_changeImageFolder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="70"
+                android:text="Choose Folder" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textView_folder"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="30"
-                    android:gravity="center"
-                    android:text="Image Folder (and sub)"
-                    android:textAlignment="center"
-                    android:textSize="20sp" />
+        <LinearLayout
+            android:id="@+id/llHor_cutOrCopy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
 
-                <Button
-                    android:id="@+id/button_changeImageFolder"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="70"
-                    android:text="Choose Folder" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textView_cutOrCopy"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:text="Cut (Red) | Copy (Green)"
+                android:textAlignment="center"
+                android:textSize="20sp" />
 
-            <LinearLayout
-                android:weightSum="100"
-                android:id="@+id/llHor_cutOrCopy"
+            <Button
+                android:id="@+id/button_cutOrCopy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView_cutOrCopy"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="30"
-                    android:text="Cut (Red) | Copy (Green)"
-                    android:textAlignment="center"
-                    android:textSize="20sp" />
-
-                <Button
-                    android:id="@+id/button_cutOrCopy"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="70"
-                    android:text="Button" />
-
-            </LinearLayout>
+                android:layout_weight="70"
+                android:text="Button" />
 
         </LinearLayout>
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_MoveToFolder"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/button_MoveToFolder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="128dp"
+        android:text="MoveTo Folder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llVert_controls" />
+
+    <Button
+        android:id="@+id/button_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="128dp"
+        android:layout_marginEnd="32dp"
+        android:text="Delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llVert_controls" />
+
+    <TextView
+        android:id="@+id/textFoundFiles"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/button_MoveToFolder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/llVert_controls" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

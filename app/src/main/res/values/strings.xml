@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">ImageSorter</string>
+    <string name="mode_copy">MODE: FALSE</string>
+    <string name="mode_cut">MODE: CUT</string>
 </resources>

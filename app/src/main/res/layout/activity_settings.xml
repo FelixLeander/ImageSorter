@@ -26,6 +26,7 @@
             android:weightSum="100">
 
             <TextView
+                android:id="@+id/settingsTextOne"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="80"
@@ -34,6 +35,7 @@
                 android:textAlignment="center" />
 
             <Switch
+                android:id="@+id/settingsSwitchOne"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_weight="20"
@@ -47,6 +49,7 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/settingsTextTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="80"
@@ -55,6 +58,7 @@
                 android:textAlignment="center" />
 
             <Switch
+                android:id="@+id/settingsSwitchTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_weight="20"
@@ -62,11 +66,21 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button_proceed"
+            android:id="@+id/settingsProceed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="VALIDATE AND CONTINUE"
             android:layout_margin="8dp" />
+
+        <TextView
+            android:id="@+id/settingsNotImplementedInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Red marked things are not yet implimented and should be ignored!"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/design_default_color_error"
+            android:textSize="20sp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

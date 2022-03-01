@@ -1,5 +1,5 @@
 # ImageSorter
-Download current App APK [here] [ApkPath]
+Download current App APK [here][ApkPath]
 
 ## Note
 ### Very early in development, everything is subject to change.

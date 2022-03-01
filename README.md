@@ -1,4 +1,5 @@
 # ImageSorter
+Download current App APK [here] [ApkPath]
 
 ## Note
 ### Very early in development, everything is subject to change.
@@ -17,3 +18,5 @@
 #### Will be focused on Android 10 & 11
 
 [RedditSource]: https://www.reddit.com/r/androidapps/comments/t22vb1/app_for_quickly_sorting_over_10000_photos_videos/?sort=confidence
+
+[ApkPath]: https://github.com/FelixLeander/ImageSorter/raw/main/app/build/intermediates/apk/debug/app-debug.apk

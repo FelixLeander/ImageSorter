@@ -2,4 +2,11 @@
     <string name="app_name">ImageSorter</string>
     <string name="mode_copy">MODE: FALSE</string>
     <string name="mode_cut">MODE: CUT</string>
+    <string name="image_folder_and_sub">Image Folder (and sub)</string>
+    <string name="choose_folder">Choose Folder</string>
+    <string name="cut_red_copy_green">Cut (Red) | Copy (Green)</string>
+    <string name="copy">Copy</string>
+    <string name="currentImage">currentImage</string>
+    <string name="move_to_folder">Move to folder</string>
+    <string name="delete">Delete</string>
 </resources>

@@ -44,20 +44,30 @@ public class SorterAct extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (data == null) {
+            Helper.DebugToast(this, "Data is null.\nFolderBrowserDialog was canceled");
+            return;
+        }
+
         Uri uri = data.getData();
         Uri docUri = DocumentsContract.buildDocumentUriUsingTree(uri,DocumentsContract.getTreeDocumentId(uri));
         String path = PathHelper.getPath(this, docUri);
+
+        if (path == null) {
+            Helper.DebugToast(this, "Data is null.\nFolderBrowserDialog was canceled");
+            return;
+        }
         File scopedFile = new File(path);
 
         if (scopedFile.exists()) {
-            Helper.BadToast(this, "Does exist");
+            Helper.DebugToast(this, "Does exist");
         }
         else {
-            Helper.BadToast(this, "Does not exist");
+            Helper.DebugToast(this, "Does not exist");
         }
 
         ((TextView) findViewById(R.id.textView_folder)).setText(scopedFile.getAbsolutePath());
-        FILE_LIST = getFilesInPath(SOURCE_FOLDER_PATH);
+        FILE_LIST = Helper.getFilesInPath(this,SOURCE_FOLDER_PATH);
 
         StringBuilder combinedText = new StringBuilder();
         for (File file: FILE_LIST) {
@@ -65,12 +75,10 @@ public class SorterAct extends AppCompatActivity {
         }
         ((TextView) findViewById(R.id.textFoundFiles)).setText(combinedText.toString());
 
-        Helper.BadToast(this,"\n" + resultCode + "\n" + data.getData());
+        Helper.DebugToast(this,"\n" + resultCode + "\n" + data.getData());
     }
 
-    private List<File> getFilesInPath(String path) {
-        return Arrays.asList(new File(path).listFiles());
-    }
+
 
     private void addButtonFunctionality() {
 

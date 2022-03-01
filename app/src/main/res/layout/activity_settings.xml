@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".SettingsAct">
 
+    <Button
+        android:id="@+id/repoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -26,19 +37,19 @@
             android:weightSum="100">
 
             <TextView
-                android:id="@+id/settingsTextOne"
-                android:layout_width="wrap_content"
+                android:id="@+id/settingsText_debugMode"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="80"
+                android:layout_weight="30"
                 android:gravity="center"
-                android:text="TextView"
+                android:text="Debug Mode"
                 android:textAlignment="center" />
 
-            <Switch
-                android:id="@+id/settingsSwitchOne"
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/settingsSwitch_debugMode"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_weight="20"
+                android:layout_weight="70"
                 android:text="Switch" />
         </LinearLayout>
 
@@ -50,18 +61,18 @@
 
             <TextView
                 android:id="@+id/settingsTextTwo"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="80"
+                android:layout_weight="30"
                 android:gravity="center"
                 android:text="TextView"
                 android:textAlignment="center" />
 
             <Switch
                 android:id="@+id/settingsSwitchTwo"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_weight="20"
+                android:layout_weight="70"
                 android:text="Switch" />
         </LinearLayout>
 
@@ -83,4 +94,5 @@
             android:textSize="20sp" />
 
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

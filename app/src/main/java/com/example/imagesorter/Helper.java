@@ -3,14 +3,10 @@ package com.example.imagesorter;
 import android.content.Context;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.Arrays;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Random;
 
 
@@ -18,15 +14,25 @@ public class Helper {
 
     public static List<Integer> uniqueIntList = new ArrayList<>(); //List for method getRandomUniqueInt
 
-    public static void BadToast(SorterAct activity, String text) {
-        activity.runOnUiThread(() -> {
-            Toast.makeText(activity, text, Toast.LENGTH_SHORT).show();
-        });
+    public static void DebugToast(SorterAct activity, String text) {
+        if (!S_DEBUG_MODE) {
+            return;
+        }
+        activity.runOnUiThread(() -> Toast.makeText(activity, text, Toast.LENGTH_LONG).show());
+    }
+
+    public static List<File> getFilesInPath(Context context, String path) {
+        File[] files = new File(path).listFiles();
+        if (files == null) {
+            Toast.makeText(context, "No files found. Possible bad path?", Toast.LENGTH_LONG).show();
+            return new ArrayList<>();
+        }
+        return Arrays.asList(files);
     }
 
     public static int getRandomUniqueInt(int maxUpper) {
         boolean exists = false;
-        int num = -1;
+        int num;
 
         do {
             num = new Random().nextInt(maxUpper);
@@ -42,6 +48,9 @@ public class Helper {
         } while (exists);
         return num;
     }
+
+    //-------Actual Settings
+    public static boolean S_DEBUG_MODE = false;
 
 
 

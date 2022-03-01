@@ -9,4 +9,8 @@
     <string name="currentImage">currentImage</string>
     <string name="move_to_folder">Move to folder</string>
     <string name="delete">Delete</string>
+    <string name="debug_mode">Debug Mode</string>
+    <string name="repo_link_for_this_app">Repo link for this app</string>
+    <string name="validate_and_continue">VALIDATE AND CONTINUE</string>
+    <string name="red_marked_things_are_not_yet_implemented_and_should_be_ignored">Red marked things are not yet implemented and should be ignored!</string>
 </resources>

@@ -105,7 +105,7 @@ public class SorterAct extends AppCompatActivity {
     }
 
     private void disableNotYetImplemented() {
-        int[] disableList = new int[] { R.id.button_cutOrCopy, R.id.textView_cutOrCopy};
+        int[] disableList = new int[] { R.id.button_cutOrCopy, R.id.textView_cutOrCopy, R.id.button_delete, R.id.button_MoveToFolder};
         for (int id : disableList) {
             findViewById(id).setBackgroundColor(Color.RED);
         }

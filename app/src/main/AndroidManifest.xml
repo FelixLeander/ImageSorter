@@ -3,6 +3,7 @@
     package="com.example.imagesorter">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.Manage_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ImageSorter">
-
         <activity
             android:name=".SettingsAct"
             android:exported="true">
@@ -21,12 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".SorterAct"
-            android:exported="false">
-        </activity>
-
+            android:exported="false" />
     </application>
 
 </manifest>

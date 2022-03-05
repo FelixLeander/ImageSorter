@@ -1,113 +1,137 @@
 package com.example.imagesorter;
 
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
-import android.graphics.Color;
+import android.content.ContentResolver;
+import android.content.res.TypedArray;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.DocumentsContract;
+import android.util.TypedValue;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.gridlayout.widget.GridLayout;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class SorterAct extends AppCompatActivity {
 
-    private boolean CUT_OR_COPY = false;
-    private String SOURCE_FOLDER_PATH = Environment.getExternalStorageDirectory().toString() + "/Pictures";
-    private int CODE_FOLDER_BROWSER_DIALOG = 295001;
+    private File CURRENT_FILE;
+    private final List<File> MARKED_FOR_DELETION = new ArrayList<>();
+    private final List<File> IMAGE_FILES = new ArrayList<>();
+    private int CURRENT_IMAGE_INDEX = -1;
 
-    private List<File> FILE_LIST = new ArrayList<>();
+    private void setNextImage() {
+        if ((CURRENT_IMAGE_INDEX + 1) >= IMAGE_FILES.size()) {
+            Toast.makeText(this, "There are no more suitable files in the source dir", Toast.LENGTH_LONG).show();
+            return;
+        }
+        CURRENT_IMAGE_INDEX++;
+        CURRENT_FILE = IMAGE_FILES.get(CURRENT_IMAGE_INDEX);
+        ((ImageView) findViewById(R.id.sorterImageView)).setImageBitmap(BitmapFactory.decodeFile(CURRENT_FILE.getPath()));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sorter);
 
-        addButtonFunctionality();
-        disableNotYetImplemented();
 
-    }
-
-    private void openFolderBrowserDialog() {
-        Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-        i.addCategory(Intent.CATEGORY_DEFAULT);
-        startActivityForResult(Intent.createChooser(i, "Choose directory"), CODE_FOLDER_BROWSER_DIALOG);
-    }
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (data == null) {
-            Helper.DebugToast(this, "Data is null.\nFolderBrowserDialog was canceled");
+        //Prepare list of files in source folder
+        File[] files = FolderButton.SourceFolder.listFiles();
+        if (files == null) {
+            Toast.makeText(this, "There was an unexpected error.\nPlease inform the developer if you can recreate this.", Toast.LENGTH_LONG).show();
             return;
-        }
-
-        Uri uri = data.getData();
-        Uri docUri = DocumentsContract.buildDocumentUriUsingTree(uri,DocumentsContract.getTreeDocumentId(uri));
-        String path = PathHelper.getPath(this, docUri);
-
-        if (path == null) {
-            Helper.DebugToast(this, "Data is null.\nFolderBrowserDialog was canceled");
-            return;
-        }
-        File scopedFile = new File(path);
-
-        if (scopedFile.exists()) {
-            Helper.DebugToast(this, "Does exist");
-        }
-        else {
-            Helper.DebugToast(this, "Does not exist");
-        }
-
-        ((TextView) findViewById(R.id.textView_folder)).setText(scopedFile.getAbsolutePath());
-        FILE_LIST = Helper.getFilesInPath(this,SOURCE_FOLDER_PATH);
-
-        StringBuilder combinedText = new StringBuilder();
-        for (File file: FILE_LIST) {
-            combinedText.append(file.getAbsolutePath()).append("\n");
-        }
-        ((TextView) findViewById(R.id.textFoundFiles)).setText(combinedText.toString());
-
-        Helper.DebugToast(this,"\n" + resultCode + "\n" + data.getData());
-    }
-
-
-
-    private void addButtonFunctionality() {
-
-        findViewById(R.id.button_delete).setOnClickListener(x -> {
-        });
-
-        //Let user change the folder where the images are located
-        findViewById(R.id.button_changeImageFolder).setOnClickListener(x -> openFolderBrowserDialog());
-
-        //Let user switch between cutting and coping images
-        Button cutOrCopy = findViewById(R.id.button_cutOrCopy);
-        cutOrCopy.setBackgroundColor(Color.GREEN);
-        cutOrCopy.setOnClickListener(x -> {
-            if (CUT_OR_COPY) {
-                cutOrCopy.setBackgroundColor(Color.GREEN);
-                CUT_OR_COPY = false;
-                ((TextView) findViewById(R.id.button_cutOrCopy)).setText(R.string.mode_copy);
-            } else {
-                cutOrCopy.setBackgroundColor(Color.RED);
-                CUT_OR_COPY = true;
-                ((TextView) findViewById(R.id.button_cutOrCopy)).setText(R.string.mode_cut);
+        } //ToDo: may add sub-folder files
+        for (File file : files) {
+            String path = file.getAbsolutePath().toLowerCase(Locale.ROOT);
+            if (path.contains(".jpg") || path.contains(".png")) {
+                IMAGE_FILES.add(file);
             }
+        }
+        if (IMAGE_FILES.size() == 0) {
+            Toast.makeText(this, "There are no .jpg/.png files in the selected source dir", Toast.LENGTH_LONG).show();
+        }
+
+
+        //Add target folders
+        for (FolderButton folderButton : FolderButton.collection) {
+            Button button = new Button(this);
+            button.setText(folderButton.name);
+            button.setBackgroundColor(fetchColor(androidx.appcompat.R.attr.colorPrimary));
+            button.setOnClickListener(v -> {
+                try {
+                    if (!moveFile(CURRENT_FILE, folderButton.directory)) {
+                        Toast.makeText(this, "The file was copied but original could not be deleted", Toast.LENGTH_SHORT).show();
+                    }
+                    setNextImage();
+                } catch (Exception ex) {
+                    Toast.makeText(this, "There was an Exception:\n" + ex.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+            ((GridLayout) findViewById(R.id.sorterGridLayout)).addView(button);
+        }
+
+
+        setButtonFunctionality();
+        setNextImage();
+    }
+
+    private boolean moveFile(File file, File dir) {
+        File newFile = new File(dir, file.getName());
+        try (FileChannel outputChannel = new FileOutputStream(newFile).getChannel(); FileChannel inputChannel = new FileInputStream(file).getChannel()) {
+            inputChannel.transferTo(0, inputChannel.size(), outputChannel);
+            inputChannel.close();
+            return eraseFile(file.getAbsolutePath());
+        } catch (Exception ex) {
+            Toast.makeText(this, "There was an error moving the file.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+    }
+
+    private boolean eraseFile(String filePath) {
+        if (filePath.startsWith("content://")) {
+            this.getContentResolver().delete(Uri.parse(filePath), null, null);
+            return true;
+        }
+        return new File(filePath).delete();
+    }
+
+    private void setButtonFunctionality() {
+        findViewById(R.id.sorterButtonSkipFile).setOnClickListener(v -> setNextImage());
+
+        findViewById(R.id.sorterButtonMarkDelete).setOnClickListener(v -> {
+            MARKED_FOR_DELETION.add(CURRENT_FILE);
+            setNextImage();
+        });
+
+        findViewById(R.id.sorterButtonConfirmDelete).setOnClickListener(v -> {
+            int markedFiles = MARKED_FOR_DELETION.size();
+            int filesDeleted = 0;
+
+            Toast.makeText(this, "Starting to delete " + markedFiles + " files.", Toast.LENGTH_SHORT).show();
+            for (File file : MARKED_FOR_DELETION) {
+                if (file.delete()) {
+                    filesDeleted++;
+                }
+            }
+            Toast.makeText(this, "Deleted " + filesDeleted + " out of " + markedFiles + "files.", Toast.LENGTH_SHORT).show();
         });
     }
 
-    private void disableNotYetImplemented() {
-        int[] disableList = new int[] { R.id.button_cutOrCopy, R.id.textView_cutOrCopy, R.id.button_delete, R.id.button_MoveToFolder};
-        for (int id : disableList) {
-            findViewById(id).setBackgroundColor(Color.RED);
-        }
+    private int fetchColor(int rAttrName) {
+        TypedValue typedValue = new TypedValue();
+        TypedArray a = obtainStyledAttributes(typedValue.data, new int[]{rAttrName});
+        int color = a.getColor(0, 0);
+        a.recycle();
+        return color;
     }
 }

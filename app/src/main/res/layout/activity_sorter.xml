@@ -6,115 +6,76 @@
     android:layout_height="match_parent"
     tools:context=".SorterAct">
 
-    <LinearLayout
-        android:id="@+id/llVert_controls"
+    <TextView
+        android:id="@+id/sorterTextViewNote"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="70"
-        android:orientation="vertical"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/textView_files_will_be_moved_instantly_n_deletion_needs_to_be_confirmed"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="@+id/sorterButtonConfirmDelete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/sorterButtonConfirmDelete"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/buttonText_confirm_deletion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sorterTextViewNote"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/sorterGridLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        app:columnCount="3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/sorterButtonConfirmDelete"/>
 
-        <LinearLayout
-            android:id="@+id/llHor_folderPath"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
-
-            <TextView
-                android:id="@+id/textView_folder"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="30"
-                android:gravity="center"
-                android:text="@string/image_folder_and_sub"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-
-            <Button
-                android:id="@+id/button_changeImageFolder"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="70"
-                android:text="@string/choose_folder" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llHor_cutOrCopy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
-
-            <TextView
-                android:id="@+id/textView_cutOrCopy"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="30"
-                android:text="@string/cut_red_copy_green"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/button_cutOrCopy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="70"
-                android:text="@string/copy" />
-
-        </LinearLayout>
-
-    </LinearLayout>
+    <Button
+        android:id="@+id/sorterButtonMarkDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/MarkDeletion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sorterGridLayout" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
+        android:id="@+id/sorterImageView"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        android:scaleType="fitCenter"
+        android:layout_marginBottom="8dp"
         android:contentDescription="@string/currentImage"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_MoveToFolder"
+        app:layout_constraintTop_toBottomOf="@+id/sorterButtonMarkDelete"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/button_MoveToFolder"
+        android:id="@+id/sorterButtonSkipFile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="128dp"
-        android:text="@string/move_to_folder"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llVert_controls" />
-
-    <Button
-        android:id="@+id/button_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="128dp"
-        android:layout_marginEnd="32dp"
-        android:text="@string/delete"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llVert_controls" />
-
-    <TextView
-        android:id="@+id/textFoundFiles"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/button_MoveToFolder"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/buttonText_skip_file"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llVert_controls" />
+        app:layout_constraintTop_toBottomOf="@+id/sorterGridLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

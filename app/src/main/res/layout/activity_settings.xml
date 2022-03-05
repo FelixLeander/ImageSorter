@@ -7,95 +7,72 @@
     tools:context=".SettingsAct">
 
     <Button
+        android:id="@+id/button_addTargetFolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="4dp"
+        android:text="@string/buttonText_setFolder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.gridlayout.widget.GridLayout
+        android:id="@+id/settingsGridLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="8dp"
+        app:columnCount="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/settingsButtonSelectSource"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/textSelectImageSource"
+        app:layout_constraintBottom_toTopOf="@+id/button_goToSort"
+        app:layout_constraintEnd_toEndOf="@+id/button_goToSort"
+        app:layout_constraintStart_toStartOf="@+id/button_goToSort" />
+
+    <Button
+        android:id="@+id/button_goToSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="128dp"
+        android:enabled="false"
+        android:text="@string/buttonText_go_to_sort"
+        app:layout_constraintBottom_toTopOf="@+id/repoButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
         android:id="@+id/repoButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
+        android:text="@string/buttonText_goToRepo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="SpeakableTextPresentCheck" />
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+    <TextView
+        android:id="@+id/settingsTextViewSelectedSource"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/repo_link_for_this_app">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="100">
-
-            <TextView
-                android:id="@+id/settingsText_debugMode"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="15"
-                android:gravity="center"
-                android:text="@string/debug_mode"
-                android:textAlignment="center" />
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/settingsSwitch_debugMode"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_weight="85"
-                android:gravity="center"
-                tools:ignore="DuplicateSpeakableTextCheck" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:weightSum="100"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/settingsTextTwo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="15"
-                android:gravity="center"
-                android:text="TextView"
-                android:textAlignment="center" />
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/settingsSwitchTwo"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_weight="85"
-                android:gravity="center"/>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/settingsProceed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/validate_and_continue"
-            android:layout_margin="8dp" />
-
-        <TextView
-            android:id="@+id/settingsNotImplementedInfo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/red_marked_things_are_not_yet_implemented_and_should_be_ignored"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/design_default_color_error"
-            android:textSize="20sp" />
-
-    </LinearLayout>
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/settingsButtonSelectSource"
+        app:layout_constraintEnd_toEndOf="@+id/settingsButtonSelectSource"
+        app:layout_constraintStart_toStartOf="@+id/settingsButtonSelectSource" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

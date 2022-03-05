@@ -1,16 +1,20 @@
 <resources>
     <string name="app_name">ImageSorter</string>
-    <string name="mode_copy">MODE: FALSE</string>
-    <string name="mode_cut">MODE: CUT</string>
+    <string name="mode_copy">COPY</string>
+    <string name="mode_cut">CUT</string>
     <string name="image_folder_and_sub">Image Folder (and sub)</string>
     <string name="choose_folder">Choose Folder</string>
-    <string name="cut_red_copy_green">Cut (Red) | Copy (Green)</string>
-    <string name="copy">Copy</string>
+    <string name="cut_or_green">Cut ot Copy</string>
     <string name="currentImage">currentImage</string>
     <string name="move_to_folder">Move to folder</string>
-    <string name="delete">Delete</string>
-    <string name="debug_mode">Debug Mode</string>
-    <string name="repo_link_for_this_app">Repo link for this app</string>
+    <string name="MarkDeletion">Mark for Deletion</string>
+    <string name="debug_mode">Show additional debug information</string>
+    <string name="buttonText_goToRepo">Open Repo in Browser</string>
     <string name="validate_and_continue">VALIDATE AND CONTINUE</string>
-    <string name="red_marked_things_are_not_yet_implemented_and_should_be_ignored">Red marked things are not yet implemented and should be ignored!</string>
+    <string name="buttonText_setFolder">Select target folder</string>
+    <string name="textSelectImageSource">Select image source folder</string>
+    <string name="buttonText_go_to_sort">GO TO SORT</string>
+    <string name="textView_files_will_be_moved_instantly_n_deletion_needs_to_be_confirmed">Files will be moved instantly.\n Deletion needs to be confirmed.</string>
+    <string name="buttonText_confirm_deletion">Confirm Deletion</string>
+    <string name="buttonText_skip_file">Skip File</string>
 </resources>

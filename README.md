@@ -1,6 +1,8 @@
 # ImageSorter
 
 ## Download current App APK [here][ApkPath]
+#### Version 1.0.1.4
+
 ## Notes
 - Very early in development, everything is subject to change.
 - Priority is basic functionality. Looks and everything else comes later.
@@ -15,6 +17,9 @@
 - [ ] Different ways of sorting
 - [ ] Custom file support (likely no or limited preview)
 - [ ] Restore deleted (shit go back button)
+
+## Known Issues
+- Not fidning any Images in source folder (Permsiion Problem)
 
 ## Feedback is appreciated. Please reach out to me!
 

@@ -1,5 +1,4 @@
-# -------------------- There is an error with the permissons right now. If you give the app permissons through the settings it should work.
-# -------------------- On hiatus for now.
+# There is an error with the permissons right now. If you give the app permissons through the settings it should work.
 
 # ImageSorter
 
